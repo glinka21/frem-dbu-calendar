@@ -3,11 +3,14 @@ module.exports = {
     clubName:
         "Boldklubben Frem",
 
-    clubId:
-        "1552",
+    teamId:
+        "20273",
 
-    competitionName:
-        "3. Division",
+    competitionId:
+        "474115",
+
+    dbuUrl:
+        "https://www.dbu.dk/resultater/hold/20273_474115/kampprogram",
 
     calendarName:
         "Boldklubben Frem - 1. hold",
