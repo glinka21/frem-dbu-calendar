@@ -12,12 +12,12 @@ function createCalendar(matches) {
 
         timezone: config.timezone,
 
-        ttl: 3600
-
         prodId: {
             company: "Boldklubben Frem",
             product: "DBU Calendar"
         }
+
+        ttl: 3600
 
     });
 
