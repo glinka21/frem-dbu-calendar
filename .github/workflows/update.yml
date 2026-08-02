@@ -7,35 +7,26 @@ on:
   workflow_dispatch:
 
 jobs:
-
   update:
-
-    runs-on:
-      ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v5
 
-      - uses:
-          actions/checkout@v4
-
-      - uses:
-          actions/setup-node@v4
-
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
 
       - run:
-          npm install
+          npm ci
 
       - run:
           npm run update
 
-      - uses:
-    stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message:
+            "Update Frem calendar"
 
-  with:
-    commit_message:
-      "Update Frem calendar"
-
-    file_pattern:
-      calendar.ics
+          file_pattern:
+            calendar.ics
