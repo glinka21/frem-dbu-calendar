@@ -31,8 +31,11 @@ jobs:
           npm run update
 
       - uses:
-          stefanzweifel/git-auto-commit-action@v5
+    stefanzweifel/git-auto-commit-action@v5
 
-        with:
-          commit_message:
-            "Update Frem calendar"
+  with:
+    commit_message:
+      "Update Frem calendar"
+
+    file_pattern:
+      calendar.ics
