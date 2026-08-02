@@ -28,9 +28,7 @@ function createCalendar(matches){
 
 
         const home =
-        match.home.includes(
-            config.clubName
-        );
+        match.home.includes("Frem");
 
 
         const icon =
@@ -46,21 +44,24 @@ function createCalendar(matches){
 
         cal.createEvent({
 
-            id:
-            "frem-" +
-            match.id +
-            "@calendar",
+    id:
+    "frem-" +
+    match.id +
+    "@calendar",
 
+    start: {
+        date: start,
+        timezone: config.timezone
+    },
 
-            start,
-
-
-            end:
-            new Date(
-                start.getTime()
-                +
-                7200000
-            ),
+    end: {
+        date:
+        new Date(
+            start.getTime() +
+            7200000
+        ),
+        timezone: config.timezone
+    },
 
 
             summary:
