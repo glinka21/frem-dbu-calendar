@@ -49,20 +49,13 @@ function createCalendar(matches){
     match.id +
     "@calendar",
 
-    start: {
-        date: start,
-        timezone: config.timezone
-    },
+    start,
 
-    end: {
-        date:
-        new Date(
-            start.getTime() +
-            7200000
-        ),
-        timezone: config.timezone
-    },
-
+    end:
+    new Date(
+        start.getTime() +
+        7200000
+    ),
 
             summary:
             `${icon} ${match.home} - ${match.away}`,
