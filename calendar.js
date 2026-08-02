@@ -12,6 +12,8 @@ function createCalendar(matches) {
 
         timezone: config.timezone,
 
+        ttl: 3600
+
         prodId: {
             company: "Boldklubben Frem",
             product: "DBU Calendar"
@@ -31,11 +33,15 @@ function createCalendar(matches) {
             isHome ? "🏠" : "🚌";
 
 
-        const start =
+       const start =
             parseDbuDate(
                 match.date,
                 match.time
             );
+
+        start.setMinutes(
+            start.getMinutes()
+        );
 
 
         const end =
