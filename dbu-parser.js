@@ -76,28 +76,67 @@ async function getMatches(){
             return;
 
 
-        matches.push({
+        const kampIndex =
+cells.findIndex(
+    c => /^\d{6}$/.test(c)
+);
 
-            id:
-            cells[0],
 
-            date:
-            cells[1],
+const datoIndex =
+cells.findIndex(
+    c => /\d{2}-\d{2}/.test(c)
+);
 
-            time:
-            cells[2],
 
-            home:
-            cells[3],
+if(
+    kampIndex === -1 ||
+    datoIndex === -1
+){
+    return;
+}
 
-            away:
-            cells[4],
 
-            stadium:
-            cells[5] ||
-            config.homeGround
+const id =
+cells[kampIndex];
 
-        });
+
+const date =
+cells[datoIndex];
+
+
+const time =
+cells[datoIndex + 1];
+
+
+const home =
+cells[datoIndex + 2];
+
+
+const away =
+cells[datoIndex + 3];
+
+
+const stadium =
+cells[datoIndex + 4];
+
+
+matches.push({
+
+    id,
+
+    date,
+
+    time,
+
+    home,
+
+    away,
+
+    stadium:
+    stadium ||
+    config.homeGround
+
+});
 
 
     });
