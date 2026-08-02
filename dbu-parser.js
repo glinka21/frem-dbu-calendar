@@ -21,14 +21,8 @@ function cleanText(text){
 async function getMatches(){
 
 
-    const team =
-        await season.findThreeDivisionTeam();
-
-
     const url =
-        "https://www.dbu.dk" +
-        team.url +
-        "/kampprogram";
+    config.dbuUrl;
 
 
     const response =
