@@ -17,8 +17,6 @@ function createCalendar(matches) {
             product: "DBU Calendar"
         }
 
-        ttl: 3600
-
     });
 
 
