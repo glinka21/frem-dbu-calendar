@@ -120,6 +120,7 @@ const stadium =
 cells[datoIndex + 4];
 
 
+console.log(cells);        
 matches.push({
 
     id,
