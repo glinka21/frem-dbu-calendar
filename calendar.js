@@ -1,68 +1,71 @@
-const ical =
-require("ical-generator").default;
+const ical = require("ical-generator").default;
+const fs = require("fs");
 
-const fs =
-require("fs");
-
-const config =
-require("./config");
+const config = require("./config");
 
 
-function createCalendar(matches){
+function createCalendar(matches) {
 
+    const cal = ical({
 
-    const cal =
-    ical({
+        name: config.calendarName,
 
-        name:
-        config.calendarName,
+        timezone: config.timezone,
 
-        timezone:
-        config.timezone
+        prodId: {
+            company: "Boldklubben Frem",
+            product: "DBU Calendar"
+        }
 
     });
 
 
+    matches.forEach(match => {
 
-    matches.forEach(match=>{
 
-
-        const home =
-        match.home.includes("Frem");
+        const isHome =
+            match.home.includes("Frem");
 
 
         const icon =
-        home ? "🏠" : "🚌";
+            isHome ? "🏠" : "🚌";
 
 
         const start =
-        parseDbuDate(
-            match.date,
-            match.time
-        );
+            parseDbuDate(
+                match.date,
+                match.time
+            );
+
+
+        const end =
+            new Date(
+                start.getTime()
+                +
+                2 * 60 * 60 * 1000
+            );
 
 
         cal.createEvent({
 
-    id:
-    "frem-" +
-    match.id +
-    "@calendar",
+            id:
+                "frem-" +
+                match.id +
+                "@calendar",
 
-    start,
 
-    end:
-    new Date(
-        start.getTime() +
-        7200000
-    ),
+            start,
+
+            end,
+
 
             summary:
-            `${icon} ${match.home} - ${match.away}`,
+                `${icon} ${match.home} - ${match.away}`,
 
 
             location:
-            match.stadium,
+                match.stadium ||
+                config.homeGround,
 
 
             description:
@@ -70,17 +73,19 @@ function createCalendar(matches){
 3. Division
 
 DBU kamp:
-${match.id}`,
+${match.id}
+
+Kilde:
+DBU.dk`,
 
 
-            alarms:[
+            alarms: [
 
                 {
-                    type:
-                    "display",
+                    type: "display",
 
                     trigger:
-                    86400
+                        86400
                 }
 
             ]
@@ -100,31 +105,53 @@ ${match.id}`,
 
 
 
-function parseDbuDate(
-    date,
-    time
-){
-
-    const m =
-    date.match(
-        /(\d{2})-(\d{2})\s(\d{4})/
-    );
+function parseDbuDate(date, time) {
 
 
-    if(!m)
+    /*
+       DBU-format:
+       lør.02-08 2025
+       14:00
+
+       Vi finder kun dato-delen,
+       så små ændringer i DBU-teksten
+       ikke ødelægger parseren.
+    */
+
+
+    const match =
+        date.match(
+            /(\d{2})-(\d{2})\s(\d{4})/
+        );
+
+
+    if (!match) {
+
         throw new Error(
             "Ukendt dato: " + date
         );
 
+    }
+
+
+    const [
+        ,
+        day,
+        month,
+        year
+    ] = match;
+
 
     return new Date(
-        `${m[3]}-${m[2]}-${m[1]}T${time}:00`
+        `${year}-${month}-${day}T${time}:00`
     );
 
 }
 
 
-module.exports =
-{
+
+module.exports = {
+
     createCalendar
+
 };
